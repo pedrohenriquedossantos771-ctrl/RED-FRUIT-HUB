@@ -1,0 +1,99 @@
+
+-- RED FRUIT HUB V1.0
+-- Interface demonstrativa para Roblox Studio
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "RedFruitHub"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local main = Instance.new("Frame")
+main.Size = UDim2.fromOffset(390, 460)
+main.Position = UDim2.new(0.5, -195, 0.5, -230)
+main.BackgroundColor3 = Color3.fromRGB(20, 12, 12)
+main.Active = true
+main.Draggable = true
+main.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = main
+
+local stroke = Instance.new("UIStroke")
+stroke.Color = Color3.fromRGB(220, 25, 35)
+stroke.Thickness = 2
+stroke.Parent = main
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 50)
+title.BackgroundTransparency = 1
+title.Text = "RED FRUIT HUB"
+title.TextColor3 = Color3.fromRGB(255, 55, 55)
+title.TextSize = 23
+title.Font = Enum.Font.GothamBold
+title.Parent = main
+
+local close = Instance.new("TextButton")
+close.Size = UDim2.fromOffset(35, 35)
+close.Position = UDim2.new(1, -42, 0, 7)
+close.Text = "X"
+close.Parent = main
+
+close.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
+
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, -20, 1, -70)
+scroll.Position = UDim2.fromOffset(10, 58)
+scroll.BackgroundTransparency = 1
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scroll.Parent = main
+
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0, 8)
+layout.Parent = scroll
+
+local features = {
+    "Auto Farm",
+    "Auto Boss",
+    "Auto Leviathan",
+    "Auto Fruit",
+    "Auto Espada",
+    "Auto Estilo de Luta",
+    "Mastery de Fruta",
+    "Mastery de Espada",
+    "Mastery de Arma",
+    "Mastery de Estilo",
+    "Auto Acessorios",
+    "Auto Materiais",
+    "Teleporte"
+}
+
+local states = {}
+
+for _, name in ipairs(features) do
+    states[name] = false
+
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -5, 0, 42)
+    button.BackgroundColor3 = Color3.fromRGB(48, 25, 25)
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.Font = Enum.Font.GothamBold
+    button.TextSize = 14
+    button.Text = name .. " [OFF]"
+    button.Parent = scroll
+
+    button.MouseButton1Click:Connect(function()
+        states[name] = not states[name]
+        button.Text = name .. (states[name] and " [ON]" or " [OFF]")
+        button.BackgroundColor3 = states[name]
+            and Color3.fromRGB(155, 25, 35)
+            or Color3.fromRGB(48, 25, 25)
+    end)
+end
+
+print("RED FRUIT HUB carregado!")
